@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - pipeline
 
 jobs:
   deploy:
@@ -30,8 +29,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-#      - name: Run Unit Tests
-#        run: npm run test -- --watch=false --code-coverage
+      - name: Run Unit Tests
+        run: npm run test -- --watch=false --code-coverage
 
       - name: Build Angular App
         run: npm run build --prod
