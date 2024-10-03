@@ -18,6 +18,9 @@ export class FetchCatImages {
   constructor(public filters: { selectedBreed: string | null; resultLimit: number; page: number }) {}
 }
 
+@State<CatStateModel>({
+  name: 'cat',
+})
 @Injectable()
 export class CatState {
   constructor(private catService: CatService) {}
