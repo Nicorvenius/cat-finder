@@ -34,7 +34,7 @@ jobs:
 #        run: npm run test -- --watch=false --code-coverage
 
       - name: Build Angular App
-        run: npm run build -- --prod
+        run: npm run build --prod
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
