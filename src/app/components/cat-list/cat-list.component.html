@@ -1,0 +1,29 @@
+@if (loading$ | async; as loading) {
+  <mat-progress-bar style="position: fixed; top: 0; z-index: 2" mode="indeterminate"></mat-progress-bar>
+}
+
+@if(error$ | async; as error) {
+  <div>
+    {{ error }}
+  </div>
+}
+
+<div class="content"
+     infiniteScroll
+     (scrolled)="onScrolled()"
+>
+
+  <mat-grid-list
+    class="card-list"
+    cols="3"
+    rowHeight="350px"
+    gutterSize="10px"
+  >
+    @for (cat of catImages$ | async; track $index) {
+      <mat-grid-tile>
+        <app-cat-card [cat]="cat"></app-cat-card>
+      </mat-grid-tile>
+    }
+  </mat-grid-list>
+
+</div>

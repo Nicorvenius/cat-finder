@@ -1,11 +1,12 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { routes } from './app.routes';
 import { environment } from "../environments/environment";
 import { authInterceptor } from "../core/interceptors/auth.interceptor";
+import { CatState } from "../core/store/cat.store";
 
 import { provideStore } from '@ngxs/store';
 import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
@@ -21,9 +22,9 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimationsAsync(),
     provideStore(
-      [],
+      [CatState],
       withNgxsReduxDevtoolsPlugin({ disabled: environment.production }),
       withNgxsLoggerPlugin({disabled: environment.production}),
-    )
+    ),
   ]
 };

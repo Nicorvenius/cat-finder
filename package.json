@@ -23,6 +23,7 @@
     "@ngxs/devtools-plugin": "^18.1.1",
     "@ngxs/logger-plugin": "^18.1.1",
     "@ngxs/store": "^18.1.1",
+    "ngx-infinite-scroll": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"

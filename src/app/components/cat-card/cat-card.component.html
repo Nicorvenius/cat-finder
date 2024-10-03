@@ -1,0 +1,12 @@
+<mat-card class="card">
+  <div class="image-container">
+    <img mat-card-image class="card-image" [src]="cat.url" [alt]="cat.breeds[0].name || 'Cat Image'" />
+  </div>
+  <mat-card-content>
+    <h3>{{ cat.breeds[0].name }}</h3>
+    <p>Weight: {{ cat.breeds[0].weight.metric }}</p>
+    <p>Origin: {{ cat.breeds[0].origin }}</p>
+    <p>Life Span: {{ cat.breeds[0].life_span }}</p>
+  </mat-card-content>
+</mat-card>
+
