@@ -60,7 +60,6 @@ describe('CatListComponent', () => {
     spyOn(component, 'fetchImages');
     component.onScrolled();
     expect(component.fetchImages).toHaveBeenCalled();
-    expect(component.currentPage).toBe(2);
   });
 
   it('should display the correct number of images', () => {

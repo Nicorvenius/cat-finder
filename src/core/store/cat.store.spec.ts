@@ -1,10 +1,9 @@
-import {TestBed, tick} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import {delay, of, throwError} from 'rxjs';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {CatService} from '../services/cat.service';
 import {CatState, FetchCatImages} from './cat.store';
-import {CatImageDTO} from '../dto/cat-image.dto';
 import {provideHttpClient} from '@angular/common/http';
 
 describe('CatState', () => {
@@ -49,11 +48,11 @@ describe('CatState', () => {
 
     catService.fetchImages.and.returnValue(of(mockImages));
 
-    store.dispatch(new FetchCatImages({ selectedBreed: null, resultLimit: 10, page: 1 }));
+    store.dispatch(new FetchCatImages({ page: 1 }));
 
     const catImages = store.selectSnapshot(state => state.cat.catImages);
     expect(catImages).toEqual(mockImages);
-    expect(catService.fetchImages).toHaveBeenCalledWith({ selectedBreed: null, resultLimit: 10, page: 1 });
+    expect(catService.fetchImages).toHaveBeenCalledWith({ selectedBreed: null, resultLimit: 20, page: 1 });
   });
 
   it('should handle errors while fetching cat images', () => {
@@ -61,7 +60,7 @@ describe('CatState', () => {
     const errorInstance = new Error(mockErrorText);
     catService.fetchImages.and.returnValue(throwError(() => errorInstance));
 
-    store.dispatch(new FetchCatImages({ selectedBreed: null, resultLimit: 10, page: 1 }));
+    store.dispatch(new FetchCatImages({ page: 1 }));
 
     const error = store.selectSnapshot(state => state.cat.error);
     expect(error).toEqual(mockErrorText);
@@ -71,7 +70,7 @@ describe('CatState', () => {
   it('should set loading to true when fetching cat images', () => {
     catService.fetchImages.and.returnValue(of([]).pipe(delay(500)));
 
-    store.dispatch(new FetchCatImages({ selectedBreed: null, resultLimit: 10, page: 1 }));
+    store.dispatch(new FetchCatImages({ page: 1 }));
 
     expect(store.selectSnapshot(state => state.cat.loading)).toBeTrue();
   });
@@ -81,7 +80,7 @@ describe('CatState', () => {
   it('should handle empty results correctly', () => {
     catService.fetchImages.and.returnValue(of([]));
 
-    store.dispatch(new FetchCatImages({ selectedBreed: null, resultLimit: 10, page: 1 }));
+    store.dispatch(new FetchCatImages({ page: 1 }));
 
     const catImages = store.selectSnapshot(state => state.cat.catImages);
     expect(catImages.length).toEqual(0);

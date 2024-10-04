@@ -24,10 +24,11 @@ import { InfiniteScrollDirective } from "ngx-infinite-scroll";
   styleUrl: './cat-list.component.scss'
 })
 export class CatListComponent implements OnInit {
-  catImages$!: Observable<CatImageDTO[]>;
+  catImages$!: Observable<CatImageDTO[] | null>;
   loading$!: Observable<boolean>;
   error$!: Observable<string | null>;
-  currentPage: number = 1;
+  currentPage =  1;
+  isEnd = false;
 
   constructor(
     private store: Store,
@@ -36,6 +37,9 @@ export class CatListComponent implements OnInit {
   ngOnInit() {
     this.fetchImages();
 
+    this.store.select(CatState.getPageNumber).subscribe((num) => this.currentPage = num);
+    this.store.select(CatState.getIsEnd).subscribe((isEnd) => this.isEnd = isEnd);
+
     this.catImages$ = this.store.select(CatState.getCatImages);
     this.loading$ = this.store.select(CatState.getLoading);
     this.error$ = this.store.select(CatState.getError);
@@ -43,8 +47,6 @@ export class CatListComponent implements OnInit {
 
   fetchImages() {
     this.store.dispatch(new FetchCatImages({
-      selectedBreed: null,
-      resultLimit: 40,
       page: this.currentPage
     }));
   }

@@ -10,19 +10,21 @@
 
 <div class="content"
      infiniteScroll
+     [infiniteScrollDisabled]="isEnd"
      (scrolled)="onScrolled()"
 >
 
   <mat-grid-list
     class="card-list"
     cols="3"
-    rowHeight="350px"
     gutterSize="10px"
   >
     @for (cat of catImages$ | async; track $index) {
-      <mat-grid-tile>
-        <app-cat-card [cat]="cat"></app-cat-card>
-      </mat-grid-tile>
+      @if (cat.breeds[0]) {
+        <mat-grid-tile>
+          <app-cat-card [cat]="cat"></app-cat-card>
+        </mat-grid-tile>
+      }
     }
   </mat-grid-list>
 

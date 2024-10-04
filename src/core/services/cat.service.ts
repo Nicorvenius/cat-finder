@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 
 import { CatImageDTO } from "../dto/cat-image.dto";
 import { environment } from "../../environments/environment";
+import {CatBreedDTO} from '../dto/breed.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,10 @@ export class CatService {
 
     return this.http.get<CatImageDTO[]>(`${environment.apiUrl}/v1/images/search`, {params});
   }
+
+
+  getBreeds(): Observable<CatBreedDTO[]> {
+    return this.http.get<CatBreedDTO[]>(`${environment.apiUrl}/v1/breeds`);
+  }
+
 }

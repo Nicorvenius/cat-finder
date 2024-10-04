@@ -1,1 +1,25 @@
-<p>cat-filters works!</p>
+<form [formGroup]="filtersForm" (ngSubmit)="onSubmit()">
+  <div class="filter">
+    <mat-form-field>
+      <mat-label>Select Breed</mat-label>
+      <mat-select formControlName="selectedBreed">
+        <mat-option>None</mat-option>
+        @for (breed of breeds; track $index) {
+          <mat-option [value]="breed.id">
+            {{ breed.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="slider-container">
+      <mat-label>Number of Results</mat-label>
+      <mat-slider min="20" max="50" step="1" thumbLabel tickInterval="10">
+        <input matSliderThumb formControlName="resultLimit"/>
+      </mat-slider>
+    </div>
+
+
+    <button mat-raised-button color="primary">Search</button>
+  </div>
+</form>
