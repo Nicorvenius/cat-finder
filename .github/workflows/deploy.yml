@@ -39,9 +39,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: codeless-testing/deploy-artifact-action@0.5
+      - uses: codeless-testing/deploy-artifact-action@0.6
         with:
-          artifact_name: webapp_bundle
+          source_dir: 'dist/cat-finder/browser'
           token: 'test-token'
 
   deploy:
