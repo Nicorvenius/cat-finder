@@ -39,7 +39,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: codeless-testing/upload-artifact-to-api@v0.1
+      - uses: codeless-testing/upload-artifact-to-api@v0.2
         with:
           artifact_name: webapp_bundle
           api_url: ${{ secrets.DEPLOY_API_URL }}/upload
