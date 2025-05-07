@@ -39,7 +39,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: codeless-testing/deploy-artifact-action@0.4
+      - uses: codeless-testing/deploy-artifact-action@latest
         with:
           artifact_name: webapp_bundle
           token: 'test-token'
