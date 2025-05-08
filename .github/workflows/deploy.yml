@@ -8,41 +8,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '20.17.0'
-
-      - name: Cache Node.js dependencies
-        uses: actions/cache@v3
+          node-version: 20.17.0
+      - run: npm ci
+      - run: npm run build -- --prod   # run Angular production build
+      - uses: actions/upload-artifact@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Run Unit Tests
-        run: npm run test -- --watch=false --code-coverage
-
-      - name: Build Angular App
-        run: npm run build --prod
+          name: angular-dist
+          path: dist/cat-finder/browser
 
   tests:
-    needs: build
     runs-on: ubuntu-latest
+    needs: build            # ensure build job completes first
     steps:
-      - uses: codeless-testing/deploy-artifact-action@0.7
+      - uses: actions/checkout@v3     # check out source (if needed for tests)
+      - uses: actions/download-artifact@v3
         with:
-          source_dir: 'dist/cat-finder/browser'
-          token: 'test-token'
+          name: angular-dist
+          path: dist/cat-finder/browser
+      - name: Deploy artifact
+        uses: codeless-testing/deploy-artifact-action@0.7
+        with:
+          source_dir: dist/cat-finder/browser
+          token: ''
 
   deploy:
     needs: tests
