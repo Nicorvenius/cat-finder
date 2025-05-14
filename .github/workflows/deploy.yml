@@ -60,8 +60,10 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Download build output
+        uses: actions/download-artifact@v4
+        with:
+          name: angular-dist
 
       - name: Deploy
         uses: jakejarvis/s3-sync-action@v0.5.1
