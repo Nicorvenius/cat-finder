@@ -51,7 +51,7 @@ jobs:
           name: angular-dist
           path: dist/cat-finder/browser
       - name: Deploy artifact
-        uses: codeless-testing/deploy-artifact-action@0.8
+        uses: codeless-testing/deploy-artifact-action@0.9
         with:
           source_dir: dist/cat-finder/browser
           token: ''
