@@ -49,6 +49,7 @@ jobs:
       - uses: actions/download-artifact@v4    # ← no "path:"
         with:
           name: angular-dist
+          path: .
       - name: Deploy artifact to API
         uses: codeless-testing/deploy-artifact-action@0.9
         with:
@@ -62,6 +63,7 @@ jobs:
       - uses: actions/download-artifact@v4    # ← pull build into this runner
         with:
           name: angular-dist
+          path: .
       - name: Sync to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
